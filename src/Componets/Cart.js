@@ -7,7 +7,6 @@ import {
   decrementItem,
 } from "../Store/Slice/CartSlice"; 
 import { Link, useNavigate } from "react-router-dom";
-import { loadStripe } from "@stripe/stripe-js";
 
 
 

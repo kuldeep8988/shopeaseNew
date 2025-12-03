@@ -45,7 +45,7 @@ export default function Home() {
         <div className="absolute inset-0 bg-black/20"></div>
         <div className="container mx-auto px-4 relative z-10 text-center">
           <h1 className="text-4xl md:text-6xl font-extrabold mb-4 bg-gradient-to-r from-yellow-300 to-orange-400 bg-clip-text text-transparent animate-fadeInUp">
-            Welcome to ShopEase
+            Welcome to hello
           </h1>
           <p className="text-xl md:text-2xl mb-8 opacity-90 animate-fadeInUp animation-delay-300">
             Discover amazing deals on your favorite products
