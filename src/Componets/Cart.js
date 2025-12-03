@@ -5,13 +5,11 @@ import {
   removeItem,
   incrementItem,
   decrementItem,
-} from "../Store/Slice/CartSlice";
+} from "../Store/Slice/CartSlice"; 
 import { Link, useNavigate } from "react-router-dom";
 import { loadStripe } from "@stripe/stripe-js";
 
-const stripePromise = loadStripe(
-  "pk_test_51P14MVSADBiCosF4FJSqwZFlojbkHEEdlcLPQl7I4veDmhXGEfcW975rzZdDK2U2r3RMDvwXu4MpXtl5WK5V89Dn00rtTAf0c9"
-);
+
 
 export default function Cart() {
   const { isCartOpen, cartItems = [] } = useSelector((state) => state.cart);
@@ -36,11 +34,11 @@ export default function Cart() {
     dispatch(decrementItem(itemId));
   };
 
-  const cartQuantity = cartItems.length;
+  const cartQuantity = cartItems.reduce((total, item) => total + (item.quantity || 1), 0);
 
   const subtotal = cartItems
     .reduce((total, item) => {
-      const price = parseFloat(item.productprice?.replace(/[^0-9.]/g, "") || 0);
+      const price = parseFloat(item.price?.replace(/[^0-9.]/g, "") || 0);
       return total + price * (item.quantity || 1);
     }, 0)
     .toFixed(2);
@@ -48,38 +46,7 @@ export default function Cart() {
   const discount = (parseFloat(subtotal) * 0.30).toFixed(2);
   const cartTotal = (parseFloat(subtotal) - parseFloat(discount)).toFixed(2);
 
-  const makePayment = async () => {
-    setIsLoading(true);
-    try {
-      const stripe = await stripePromise;
-      const body = { products: cartItems };
-      const headers = { "Content-Type": "application/json" };
-
-      const response = await fetch(
-        "http://localhost:7000/api/create-checkout-session",
-        {
-          method: "POST",
-          headers,
-          body: JSON.stringify(body),
-        }
-      );
-
-      if (!response.ok) {
-        throw new Error("Failed to create checkout session");
-      }
-
-      const session = await response.json();
-      const result = await stripe.redirectToCheckout({ sessionId: session.id });
-
-      if (result.error) {
-        console.error("Stripe checkout error:", result.error.message);
-      }
-    } catch (error) {
-      console.error("Payment error:", error.message);
-    } finally {
-      setIsLoading(false);
-    }
-  };
+  
 
   return (
     <div className="min-h-screen bg-gray-50 mt-10">
@@ -141,7 +108,7 @@ export default function Cart() {
             {/* Items List */}
             <div className="lg:col-span-2 space-y-6">
               {cartItems.map((item) => {
-                const price = parseFloat(item.productprice?.replace(/[^0-9.]/g, "") || 0);
+                const price = parseFloat(item.price?.replace(/[^0-9.]/g, "") || 0);
                 const itemSubtotal = (price * (item.quantity || 1)).toFixed(2);
                 return (
                   <div
@@ -229,7 +196,7 @@ export default function Cart() {
                   type="button"
                   className="w-full bg-gradient-to-r from-teal-600 to-emerald-600 text-white py-4 rounded-xl font-bold text-lg shadow-lg hover:from-teal-700 hover:to-emerald-700 transition-all duration-200 transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none"
                   disabled={cartQuantity === 0 || isLoading}
-                  onClick={makePayment}
+                
                 >
                   {isLoading ? (
                     <span className="flex items-center justify-center">

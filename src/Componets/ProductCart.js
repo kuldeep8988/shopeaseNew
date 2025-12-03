@@ -9,7 +9,7 @@ export default function ProductCart(props) {
   const {
     id,
     productname,
-    productprice,
+    price,
     productimage,
     imageAlt,
     color,
@@ -43,7 +43,7 @@ export default function ProductCart(props) {
   // Calculate discounted price if discount exists
   const discountedPrice =
     discount > 0
-      ? (productprice - productprice * (discount / 100)).toFixed(2)
+      ? (price - price * (discount / 100)).toFixed(2)
       : null;
 
   // Generate star rating icons
@@ -131,13 +131,13 @@ export default function ProductCart(props) {
           <div className="text-left space-y-1">
             {discount > 0 ? (
               <>
-                <p className="text-sm text-gray-400 line-through">₹{productprice}</p>
+                <p className="text-sm text-gray-400 line-through">₹{price}</p>
                 <p className="text-xl font-extrabold bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">
                   ₹{discountedPrice}
                 </p>
               </>
             ) : (
-              <p className="text-xl font-extrabold text-gray-900">₹{productprice}</p>
+              <p className="text-xl font-extrabold text-gray-900">₹{price}</p>
             )}
           </div>
 

@@ -130,13 +130,13 @@ export default function ProductDetail() {
               <div className="space-y-2">
                 {product.discount > 0 ? (
                   <>
-                    <p className="text-xl text-gray-500 line-through">₹{product.productprice}</p>
+                    <p className="text-xl text-gray-500 line-through">₹{product.price}</p>
                     <p className="text-4xl font-black bg-gradient-to-r from-teal-600 to-emerald-600 bg-clip-text text-transparent">
-                      ₹{(product.productprice - product.productprice * (product.discount / 100)).toFixed(0)}
+                      ₹{(product.price - product.price * (product.discount / 100)).toFixed(0)}
                     </p>
                   </>
                 ) : (
-                  <p className="text-4xl font-black text-gray-900">₹{product.productprice}</p>
+                  <p className="text-4xl font-black text-gray-900">₹{product.price}</p>
                 )}
                 <p className="text-sm text-gray-500">Free shipping on orders over ₹500</p>
               </div>

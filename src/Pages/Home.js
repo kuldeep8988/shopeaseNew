@@ -39,7 +39,7 @@ export default function Home() {
   );
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-indigo-50 via-white to-purple-50">
+    <div className="min-h-screen bg-gradient-to-br from-indigo-50 via-white to-purple-50 scroll-smooth">
       {/* Hero Section with Main Banner */}
       <section className="relative overflow-hidden bg-gradient-to-r from-indigo-900 via-purple-900 to-indigo-900 text-white py-20">
         <div className="absolute inset-0 bg-black/20"></div>

@@ -26,12 +26,12 @@ export default function Wishlist() {
   };
 
   const getItemPrice = (item) => {
-    const price = parseFloat(item.productprice?.replace(/[^0-9.]/g, "") || 0);
-    return (price * (item.quantity || 1)).toFixed(2);
+    const price = parseFloat(item.price?.replace(/[^0-9.]/g, "") || 0);
+    return price * (item.quantity || 1);
   };
 
   const totalPrice = wishItem
-    .reduce((total, item) => total + parseFloat(getItemPrice(item)), 0)
+    .reduce((total, item) => total + getItemPrice(item), 0)
     .toFixed(2);
 
   return (
@@ -96,7 +96,7 @@ export default function Wishlist() {
                         </h2>
                         <p className="text-gray-500 mt-1">
                           ${parseFloat(
-                            item.productprice?.replace(/[^0-9.]/g, "") || 0
+                            item.price?.replace(/[^0-9.]/g, "") || 0
                           ).toFixed(2)}
                         </p>
                       </div>
