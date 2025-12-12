@@ -33,7 +33,10 @@ export default function Login() {
       navigate("/");
     } catch (error) {
       console.error(error);
-      if (error.code === "auth/user-not-found" || error.code === "auth/wrong-password") {
+      if (
+        error.code === "auth/user-not-found" ||
+        error.code === "auth/wrong-password"
+      ) {
         setErrors({ general: "Invalid email or password" });
       } else {
         setErrors({ general: "Something went wrong. Please try again." });
@@ -44,16 +47,17 @@ export default function Login() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-indigo-50 via-white to-teal-50 flex items-center justify-center py-12 px-4 sm:px-6 mt-10 lg:px-8 relative overflow-hidden">
-      {/* Old soft overlay background */}
+    <div className="min-h-screen bg-gradient-to-br from-indigo-50 via-white to-teal-50 flex items-center justify-center py-8 px-4 sm:px-6 mt-8 lg:px-8 relative overflow-hidden">
+
       <div className="absolute inset-0 bg-gradient-to-r from-indigo-100/20 to-teal-100/20"></div>
 
-      <div className="relative max-w-md w-full bg-white rounded-2xl shadow-xl p-8 transform transition-all duration-500 hover:shadow-2xl">
-        {/* Header with icon */}
-        <div className="text-center mb-8">
-          <div className="mx-auto w-16 h-16 bg-gradient-to-r from-indigo-500 to-teal-500 rounded-2xl flex items-center justify-center mb-4 shadow-lg">
+      <div className="relative w-full max-w-sm bg-white rounded-2xl shadow-xl p-6 sm:p-8 transition-all duration-500">
+
+        {/* Header */}
+        <div className="text-center mb-6 sm:mb-8">
+          <div className="mx-auto w-14 h-14 sm:w-16 sm:h-16 bg-gradient-to-r from-indigo-500 to-teal-500 rounded-xl flex items-center justify-center shadow-md">
             <svg
-              className="w-8 h-8 text-white"
+              className="w-7 h-7 sm:w-8 sm:h-8 text-white"
               fill="none"
               stroke="currentColor"
               viewBox="0 0 24 24"
@@ -66,40 +70,34 @@ export default function Login() {
               />
             </svg>
           </div>
-          <h2 className="text-3xl font-bold bg-gradient-to-r from-indigo-800 to-teal-600 bg-clip-text text-transparent text-center mb-2">
+
+          <h2 className="text-2xl sm:text-3xl font-bold bg-gradient-to-r from-indigo-800 to-teal-600 bg-clip-text text-transparent mt-3">
             Welcome Back
           </h2>
-          <p className="text-gray-600 text-sm">Sign in to your account</p>
+          <p className="text-gray-600 text-xs sm:text-sm">Sign in to your account</p>
         </div>
 
-        <form onSubmit={handleLogin} className="space-y-6">
-          {/* Email Input */}
-          <div className="relative">
-            <label
-              htmlFor="email"
-              className="block text-sm font-medium text-gray-700 mb-2"
-            >
-              Email Address
-            </label>
-            <div className="relative">
+        {/* Form */}
+        <form onSubmit={handleLogin} className="space-y-5 sm:space-y-6">
+          
+          {/* Email */}
+          <div>
+            <label className="text-sm font-medium text-gray-700">Email Address</label>
+            <div className="relative mt-1">
               <input
-                id="email"
                 type="email"
                 placeholder="Enter your email"
                 value={email}
                 onChange={(e) => {
                   setEmail(e.target.value);
-                  if (errors.email) setErrors((prev) => ({ ...prev, email: "" }));
+                  if (errors.email) setErrors(prev => ({ ...prev, email: "" }));
                 }}
-                required
-                className={`w-full pl-10 pr-4 py-3 bg-gray-50 text-gray-900 placeholder-gray-500 rounded-xl border ${
-                  errors.email
-                    ? "border-red-400 focus:ring-red-400"
-                    : "border-gray-200 focus:ring-indigo-500"
-                } focus:outline-none focus:ring-2 focus:border-transparent transition-all duration-300 peer`}
+                className={`w-full pl-10 pr-4 py-2.5 sm:py-3 text-sm bg-gray-50 rounded-xl border ${
+                  errors.email ? "border-red-400" : "border-gray-200"
+                } focus:ring-2 focus:ring-indigo-500 focus:outline-none transition-all`}
               />
               <svg
-                className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400 peer-focus:text-indigo-500 transition-colors"
+                className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400"
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"
@@ -112,39 +110,27 @@ export default function Login() {
                 />
               </svg>
             </div>
-            {errors.email && (
-              <p className="text-red-500 text-xs mt-1">{errors.email}</p>
-            )}
+            {errors.email && <p className="text-red-500 text-xs mt-1">{errors.email}</p>}
           </div>
 
-          {/* Password Input */}
-          <div className="relative">
-            <label
-              htmlFor="password"
-              className="block text-sm font-medium text-gray-700 mb-2"
-            >
-              Password
-            </label>
-            <div className="relative">
+          {/* Password */}
+          <div>
+            <label className="text-sm font-medium text-gray-700">Password</label>
+            <div className="relative mt-1">
               <input
-                id="password"
                 type="password"
                 placeholder="Enter your password"
                 value={password}
                 onChange={(e) => {
                   setPassword(e.target.value);
-                  if (errors.password)
-                    setErrors((prev) => ({ ...prev, password: "" }));
+                  if (errors.password) setErrors(prev => ({ ...prev, password: "" }));
                 }}
-                required
-                className={`w-full pl-10 pr-4 py-3 bg-gray-50 text-gray-900 placeholder-gray-500 rounded-xl border ${
-                  errors.password
-                    ? "border-red-400 focus:ring-red-400"
-                    : "border-gray-200 focus:ring-indigo-500"
-                } focus:outline-none focus:ring-2 focus:border-transparent transition-all duration-300 peer`}
+                className={`w-full pl-10 pr-4 py-2.5 sm:py-3 text-sm bg-gray-50 rounded-xl border ${
+                  errors.password ? "border-red-400" : "border-gray-200"
+                } focus:ring-2 focus:ring-indigo-500 focus:outline-none transition-all`}
               />
               <svg
-                className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400 peer-focus:text-indigo-500 transition-colors"
+                className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400"
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"
@@ -157,77 +143,40 @@ export default function Login() {
                 />
               </svg>
             </div>
-            {errors.password && (
-              <p className="text-red-500 text-xs mt-1">{errors.password}</p>
-            )}
+            {errors.password && <p className="text-red-500 text-xs mt-1">{errors.password}</p>}
           </div>
 
           {/* General Error */}
           {errors.general && (
-            <p className="text-red-500 text-sm text-center font-medium">
-              {errors.general}
-            </p>
+            <p className="text-red-500 text-sm text-center">{errors.general}</p>
           )}
 
           {/* Forgot Password */}
-          <div className="text-right">
-            <Link
-              to="/forgot-password"
-              className="text-sm text-indigo-600 hover:text-indigo-500 font-medium transition-colors duration-200"
-            >
+          <div className="text-right -mt-2">
+            <Link className="text-xs sm:text-sm text-indigo-600" to="/forgot-password">
               Forgot your password?
             </Link>
           </div>
 
-          {/* Smaller Secure Button */}
-          <div className="text-center">
-            <button
-              type="submit"
-              disabled={isLoading}
-              className="inline-flex items-center w-[300px] justify-center px-5 py-2.5 text-sm font-semibold text-white bg-gradient-to-r from-indigo-600 to-teal-500 rounded-lg shadow-md hover:from-indigo-700 hover:to-teal-600 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 disabled:opacity-50 transition-all duration-300 transform hover:scale-[1.02] active:scale-[0.98]"
-            >
-              {isLoading ? (
-                <>
-                  <svg
-                    className="animate-spin -ml-1 mr-2 h-4 w-4 text-white"
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                  >
-                    <circle
-                      className="opacity-25"
-                      cx="12"
-                      cy="12"
-                      r="10"
-                      stroke="currentColor"
-                      strokeWidth="4"
-                    />
-                    <path
-                      className="opacity-75"
-                      fill="currentColor"
-                      d="M4 12a8 8 0 018-8V0C5.37 0 0 5.37 0 12h4z"
-                    />
-                  </svg>
-                  Signing in...
-                </>
-              ) : (
-                "Sign In Securely"
-              )}
-            </button>
-          </div>
+          {/* Button */}
+          <button
+            type="submit"
+            disabled={isLoading}
+            className="w-full py-2.5 sm:py-3 text-sm font-semibold text-white bg-gradient-to-r from-indigo-600 to-teal-500 rounded-lg shadow-md hover:opacity-90 transition-all disabled:opacity-50"
+          >
+            {isLoading ? "Signing in..." : "Sign In Securely"}
+          </button>
 
-          {/* Register Link */}
-          <div className="text-center">
-            <p className="text-sm text-gray-600">
+          {/* Register */}
+          <div className="text-center text-xs sm:text-sm">
+            <p className="text-gray-600">
               Don't have an account?{" "}
-              <Link
-                to="/page"
-                className="font-medium text-indigo-600 hover:text-indigo-500 transition-colors duration-200"
-              >
+              <Link className="text-indigo-600 font-medium" to="/page">
                 Create one now
               </Link>
             </p>
           </div>
+
         </form>
       </div>
     </div>

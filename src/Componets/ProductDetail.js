@@ -10,9 +10,7 @@ export default function ProductDetail() {
   const { id } = useParams();
   const [product, setProduct] = useState(null);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
 
-  // track button states
   const [addedToCart, setAddedToCart] = useState(false);
   const [addedToWish, setAddedToWish] = useState(false);
 
@@ -25,38 +23,27 @@ export default function ProductDetail() {
         setProduct(res.data);
         setLoading(false);
       })
-      .catch((err) => {
-        setError(err.message);
-        setLoading(false);
-      });
+      .catch(() => setLoading(false));
   }, [id]);
 
-  if (loading) return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-indigo-50 to-purple-50">
-      <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-teal-600"></div>
-    </div>
-  );
-  if (error) return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-indigo-50 to-purple-50">
-      <div className="text-center">
-        <h2 className="text-2xl font-bold text-red-600 mb-4">Error Loading Product</h2>
-        <p className="text-gray-600">{error}</p>
+  if (loading)
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-indigo-50 to-purple-50">
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-teal-600"></div>
       </div>
-    </div>
-  );
-  if (!product) return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-indigo-50 to-purple-50">
-      <div className="text-center">
-        <h2 className="text-2xl font-bold text-gray-900 mb-4">Product Not Found</h2>
-        <Link to="/" className="text-teal-600 hover:text-teal-700">Back to Products</Link>
+    );
+
+  if (!product)
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-indigo-50 to-purple-50">
+        <h2 className="text-xl font-semibold">Product Not Found</h2>
       </div>
-    </div>
-  );
+    );
 
   const AddtoCart = () => {
     dispatch(addItem(product));
     setAddedToCart(true);
-    setTimeout(() => setAddedToCart(false), 2000); // reset after 2s
+    setTimeout(() => setAddedToCart(false), 2000);
   };
 
   const Addtowish = () => {
@@ -65,153 +52,144 @@ export default function ProductDetail() {
     setTimeout(() => setAddedToWish(false), 2000);
   };
 
-  // Generate star rating icons
   const renderStars = (rating) => {
-    const stars = [];
-    for (let i = 1; i <= 5; i++) {
-      stars.push(
-        <FaStar
-          key={i}
-          className={`text-sm transition-colors ${
-            i <= Math.floor(rating || 0) ? "text-yellow-400 fill-current" : "text-gray-300"
-          }`}
-        />
-      );
-    }
-    return stars;
+    return [...Array(5)].map((_, i) => (
+      <FaStar
+        key={i}
+        className={`text-sm ${i < Math.floor(rating || 0) ? "text-yellow-400" : "text-gray-300"}`}
+      />
+    ));
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-indigo-50 via-white to-purple-50 py-8 mt-5 ">
+    <div className="min-h-screen bg-gradient-to-br from-indigo-50 via-white to-purple-50 py-8 mt-4">
       <div className="container mx-auto px-4 max-w-7xl">
+
         {/* Back Button */}
         <Link
           to="/"
-          className="inline-flex items-center gap-2 text-indigo-600 hover:text-indigo-800 font-semibold text-sm transition-all duration-300 hover:scale-105 mb-8 bg-white/50 backdrop-blur-sm px-4 py-2 rounded-full shadow-md"
+          className="inline-flex items-center gap-2 text-indigo-600 hover:text-indigo-800 font-semibold text-sm bg-white/60 px-4 py-2 rounded-full shadow-md transition-all duration-200"
         >
-          <FaArrowLeft className="w-4 h-4" />
-          Back to Products
+          <FaArrowLeft /> Back
         </Link>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 bg-white/80 backdrop-blur-sm shadow-2xl rounded-3xl p-8 border border-white/20">
+        {/* Main Card */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 bg-white rounded-3xl shadow-xl p-6 mt-6 border border-gray-100">
+
           {/* Product Image */}
-          <div className="relative group">
-            <div className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-gray-50 to-gray-100 shadow-inner">
+          <div className="relative">
+            <div className="overflow-hidden rounded-2xl shadow-md bg-gray-100">
               <img
                 src={product.productimage}
-                alt={product.imageAlt || product.productname}
-                className="w-full h-[500px] object-cover transition-transform duration-700 group-hover:scale-110"
-                loading="lazy"
+                alt={product.productname}
+                className="w-full h-[280px] xs:h-[330px] sm:h-[380px] md:h-[470px] lg:h-[500px] object-cover transition-transform duration-500 hover:scale-105"
               />
-              {/* Image overlay for premium feel */}
-              <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
             </div>
-            {/* Quick view badges */}
+
+            {/* Badges */}
             <div className="absolute top-4 right-4 flex flex-col gap-2">
               {product.discount > 0 && (
-                <div className="bg-gradient-to-r from-teal-500 to-emerald-500 text-white text-xs font-bold px-3 py-1.5 rounded-full shadow-lg animate-bounce-slow">
+                <span className="bg-gradient-to-r from-teal-500 to-emerald-500 text-white text-xs font-bold px-3 py-1 rounded-full shadow">
                   {product.discount}% OFF
-                </div>
+                </span>
               )}
-              <div className="bg-white/90 backdrop-blur-sm text-gray-800 text-xs font-semibold px-3 py-1.5 rounded-full shadow-md">
-                {product.color || 'Premium Quality'}
-              </div>
+
+              <span className="bg-white text-gray-700 text-xs font-semibold px-3 py-1 rounded-full shadow">
+                {product.color || "Premium"}
+              </span>
             </div>
           </div>
 
           {/* Product Details */}
-          <div className="flex flex-col justify-between space-y-6">
-            <div className="space-y-4">
-              <h1 className="text-4xl lg:text-5xl font-extrabold text-gray-900 leading-tight bg-gradient-to-r from-gray-900 to-indigo-900 bg-clip-text">
-                {product.productname}
-              </h1>
-              
-              {/* Price Section */}
-              <div className="space-y-2">
-                {product.discount > 0 ? (
-                  <>
-                    <p className="text-xl text-gray-500 line-through">₹{product.price}</p>
-                    <p className="text-4xl font-black bg-gradient-to-r from-teal-600 to-emerald-600 bg-clip-text text-transparent">
-                      ₹{(product.price - product.price * (product.discount / 100)).toFixed(0)}
-                    </p>
-                  </>
-                ) : (
-                  <p className="text-4xl font-black text-gray-900">₹{product.price}</p>
-                )}
-                <p className="text-sm text-gray-500">Free shipping on orders over ₹500</p>
-              </div>
+          <div className="space-y-6">
 
-              {/* Rating */}
-              <div className="flex items-center space-x-2">
-                <div className="flex text-lg">{renderStars(product.rating)}</div>
-                <span className="text-sm text-gray-600 ml-2">({product.rating || 0} reviews)</span>
-              </div>
+            <h1 className="text-3xl md:text-4xl font-extrabold text-gray-900 leading-tight">
+              {product.productname}
+            </h1>
 
-              {/* Description */}
-              <div className="bg-gradient-to-r from-indigo-50 to-purple-50 p-6 rounded-2xl border border-indigo-100">
-                <h3 className="text-lg font-semibold text-gray-800 mb-3">Description</h3>
-                <p className="text-gray-600 leading-relaxed text-sm">
-                  {product.productdescription || "Discover the perfect blend of style and comfort with this premium product, crafted for everyday elegance."}
-                </p>
-              </div>
-
-              {/* Features (if available, or placeholder) */}
-              {product.color && (
-                <div className="space-y-2">
-                  <h4 className="text-sm font-semibold text-gray-700">Available Colors:</h4>
-                  <div className="flex gap-2">
-                    <span className="w-8 h-8 rounded-full border-2 border-white shadow-sm" style={{ backgroundColor: product.color }}></span>
-                    <span className="w-8 h-8 rounded-full border-2 border-gray-300 bg-gray-200"></span>
-                    <span className="w-8 h-8 rounded-full border-2 border-gray-300 bg-black"></span>
-                  </div>
-                </div>
+            {/* Price */}
+            <div>
+              {product.discount > 0 ? (
+                <>
+                  <p className="line-through text-gray-500 text-lg">
+                    ₹{product.price}
+                  </p>
+                  <p className="text-4xl text-teal-600 font-black">
+                    ₹{(product.price - product.price * (product.discount / 100)).toFixed(0)}
+                  </p>
+                </>
+              ) : (
+                <p className="text-4xl font-black text-gray-900">₹{product.price}</p>
               )}
+              <p className="text-sm text-gray-500">Free shipping above ₹500</p>
             </div>
 
-            {/* Action Buttons */}
-            <div className="flex gap-4 pt-4">
-              {/* Cart Button */}
+            {/* Rating */}
+            <div className="flex items-center gap-2">
+              <div className="flex">{renderStars(product.rating)}</div>
+              <span className="text-sm text-gray-600">({product.rating} Reviews)</span>
+            </div>
+
+            {/* Description */}
+            <div className="bg-gradient-to-r from-indigo-50 to-purple-50 p-4 rounded-xl">
+              <h3 className="font-semibold mb-2 text-gray-800">Description</h3>
+              <p className="text-gray-600 text-sm leading-relaxed">
+                {product.productdescription || "Premium quality product made for everyday comfort and style."}
+              </p>
+            </div>
+
+            {/* Colors */}
+            {product.color && (
+              <div>
+                <h4 className="text-sm font-semibold text-gray-700 mb-2">Available Colors</h4>
+                <div className="flex gap-2">
+                  <span
+                    className="w-8 h-8 rounded-full border shadow-sm"
+                    style={{ backgroundColor: product.color }}
+                  ></span>
+                  <span className="w-8 h-8 rounded-full bg-gray-200 border shadow-sm"></span>
+                  <span className="w-8 h-8 rounded-full bg-black border shadow-sm"></span>
+                </div>
+              </div>
+            )}
+
+            {/* Buttons */}
+            <div className="flex flex-col sm:flex-row gap-3 pt-3 w-full">
+
+              {/* Add to Cart */}
               <button
                 onClick={AddtoCart}
-                className={`flex-1 relative py-4 px-6 rounded-2xl font-semibold text-lg transition-all duration-300 transform shadow-xl ${
-                  addedToCart
-                    ? "bg-gradient-to-r from-green-500 to-emerald-600 text-white animate-pulse shadow-green-500/25"
-                    : "bg-gradient-to-r from-teal-600 to-emerald-600 hover:from-teal-700 hover:to-emerald-700 text-white hover:scale-105 hover:shadow-2xl"
-                }`}
+                className={`flex-1 flex items-center justify-center gap-2 py-3 rounded-lg text-sm xs:text-base font-semibold shadow-md transition-all
+                  ${addedToCart
+                    ? "bg-green-600 text-white"
+                    : "bg-teal-600 text-white hover:bg-teal-700"
+                  }`}
               >
-                {addedToCart ? (
-                  <>
-                    <FaShoppingCart className="w-5 h-5 inline mr-2 animate-bounce" />
-                    Added to Cart!
-                  </>
-                ) : (
-                  <>
-                    <FaShoppingCart className="w-5 h-5 inline mr-2" />
-                    Add to Cart
-                  </>
-                )}
+                <FaShoppingCart />
+                <span className="truncate">{addedToCart ? "Added!" : "Add"}</span>
               </button>
 
-              {/* Wishlist Button */}
+              {/* Wishlist */}
               <button
                 onClick={Addtowish}
-                className={`relative p-4 rounded-2xl font-semibold text-lg transition-all duration-300 transform shadow-xl ${
-                  addedToWish
-                    ? "bg-gradient-to-r from-pink-500 to-red-500 text-white scale-105 shadow-pink-500/25 animate-pulse"
-                    : "bg-gradient-to-r from-purple-100 to-pink-100 hover:from-purple-200 hover:to-pink-200 text-purple-700 hover:scale-105 hover:shadow-lg border border-purple-200"
-                }`}
+                className={`flex-1 flex items-center justify-center gap-2 py-3 rounded-lg text-sm xs:text-base font-semibold shadow-md transition-all
+                  ${addedToWish
+                    ? "bg-pink-600 text-white"
+                    : "bg-white text-pink-600 border border-pink-300 hover:bg-pink-50"
+                  }`}
               >
-                <FaHeart className={`w-6 h-6 inline ${addedToWish ? 'fill-current' : ''}`} />
-                {addedToWish ? "Added!" : "Wishlist"}
+                <FaHeart />
+                <span className="truncate">{addedToWish ? "Added!" : "Wish"}</span>
               </button>
+
             </div>
           </div>
         </div>
 
-        {/* Additional Section: Related Products or Reviews - Placeholder */}
-        <div className="mt-16 p-8 bg-white/50 backdrop-blur-sm rounded-3xl border border-white/20">
-          <h2 className="text-2xl font-bold text-gray-900 mb-6">You Might Also Like</h2>
-          <p className="text-gray-600">Explore similar products for more inspiration.</p>
+        {/* Suggested Section */}
+        <div className="mt-12 bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
+          <h2 className="text-xl font-bold text-gray-800 mb-2">You May Also Like</h2>
+          <p className="text-gray-500 text-sm">More similar stylish products coming soon.</p>
         </div>
       </div>
     </div>

@@ -25,6 +25,7 @@ export default function Wishlist() {
     dispatch(wishremoveItem(item.id));
   };
 
+  // Clean Price Converter
   const getItemPrice = (item) => {
     const price = parseFloat(item.price?.replace(/[^0-9.]/g, "") || 0);
     return price * (item.quantity || 1);
@@ -35,105 +36,106 @@ export default function Wishlist() {
     .toFixed(2);
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-indigo-50 to-gray-100 pt-20 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-6xl mx-auto">
+    <div className="min-h-screen bg-gradient-to-b from-indigo-50 to-gray-100 pt-20 px-3 sm:px-6 lg:px-8">
+      <div className="max-w-5xl mx-auto">
         {/* Header */}
-        <div className="flex justify-between items-center mb-10">
-          <h1 className="text-4xl font-extrabold text-indigo-900 flex items-center gap-3">
+        <div className="flex justify-between items-center mb-8">
+          <h1 className="text-3xl sm:text-4xl font-extrabold text-indigo-900 flex items-center gap-2 sm:gap-3">
             <FaHeart className="text-pink-500" />
-            Your Wishlist
-            <span className="text-lg font-medium text-gray-600 ml-2">
-              ({wishItem.length} items)
+            Wishlist
+            <span className="text-base sm:text-lg font-medium text-gray-600">
+              ({wishItem.length})
             </span>
           </h1>
+
           {isWishlist && (
             <button
               onClick={handleCloseWish}
-              className="text-gray-600 hover:text-indigo-700 text-3xl font-bold transition duration-200"
-              aria-label="Close wishlist"
+              className="text-gray-600 hover:text-indigo-700 text-3xl font-bold"
             >
               &times;
             </button>
           )}
         </div>
 
-        {/* Empty state */}
+        {/* Empty Wishlist */}
         {wishItem.length === 0 ? (
-          <div className="bg-white/60 backdrop-blur-md rounded-2xl shadow-lg p-12 text-center">
-            <p className="text-gray-700 text-xl font-medium">
+          <div className="bg-white/70 backdrop-blur-md rounded-xl shadow-lg p-10 text-center">
+            <p className="text-gray-700 text-lg sm:text-xl font-medium">
               Your wishlist is empty.{" "}
               <Link
                 to="/"
-                className="text-indigo-600 hover:text-indigo-800 font-semibold transition"
+                className="text-indigo-600 hover:text-indigo-800 font-semibold"
               >
-                Start shopping now
+                Start shopping →
               </Link>
             </p>
           </div>
         ) : (
-          <div className="space-y-6">
+          <>
             {/* Wishlist Items */}
-            <div className="grid gap-6">
+            <div className="grid gap-5">
               {wishItem.map((item) => (
                 <div
                   key={item.id}
-                  className="flex flex-col sm:flex-row items-center sm:items-stretch justify-between bg-white rounded-2xl shadow-md hover:shadow-lg transition-all duration-300 p-4 sm:p-6 transform hover:scale-[1.01]"
+                  className="flex flex-col sm:flex-row items-center sm:items-stretch justify-between bg-white rounded-xl shadow-md hover:shadow-lg transition-all duration-300 p-4 sm:p-5"
                 >
                   {/* Product Info */}
-                  <div className="flex items-center space-x-4 sm:w-1/2">
+                  <div className="flex items-center gap-4 w-full sm:w-1/2">
                     <Link
                       to={`/product/${item.id}`}
-                      className="flex items-center space-x-4 group"
+                      className="flex items-center gap-4 group"
                     >
                       <img
                         src={item.productimage}
                         alt={item.productname}
-                        className="w-24 h-24 object-cover rounded-xl shadow-sm group-hover:scale-105 transition-transform duration-300"
+                        className="w-20 h-20 sm:w-24 sm:h-24 object-cover rounded-xl shadow-sm group-hover:scale-105 transition-transform"
                       />
                       <div>
-                        <h2 className="text-lg font-semibold text-gray-800 group-hover:text-indigo-600 transition">
+                        <h2 className="text-base sm:text-lg font-semibold text-gray-800 group-hover:text-indigo-600 transition">
                           {item.productname || "Unnamed Product"}
                         </h2>
-                        <p className="text-gray-500 mt-1">
-                          ${parseFloat(
-                            item.price?.replace(/[^0-9.]/g, "") || 0
-                          ).toFixed(2)}
+                        <p className="text-gray-600 mt-1 text-sm">
+                          ${parseFloat(item.price?.replace(/[^0-9.]/g, "") || 0).toFixed(2)}
                         </p>
                       </div>
                     </Link>
                   </div>
 
-                  {/* Quantity Controls */}
-                  <div className="flex items-center gap-4 mt-4 sm:mt-0">
+                  {/* Qty Controls */}
+                  <div className="flex items-center gap-3 sm:gap-4 mt-4 sm:mt-0">
                     <button
                       onClick={() => handleDecrement(item.id)}
                       disabled={(item.quantity || 1) <= 1}
-                      className="p-2 bg-gray-200 rounded-full hover:bg-gray-300 transition disabled:opacity-50"
+                      className="p-2 bg-gray-200 rounded-full hover:bg-gray-300 disabled:opacity-40"
                     >
                       <FaMinus className="h-4 w-4 text-gray-700" />
                     </button>
-                    <span className="text-lg font-medium text-gray-800 w-8 text-center">
+
+                    <span className="text-lg font-medium text-gray-800 w-6 text-center">
                       {item.quantity || 1}
                     </span>
+
                     <button
                       onClick={() => handleIncrement(item.id)}
-                      className="p-2 bg-gray-200 rounded-full hover:bg-gray-300 transition"
+                      className="p-2 bg-gray-200 rounded-full hover:bg-gray-300"
                     >
                       <FaPlus className="h-4 w-4 text-gray-700" />
                     </button>
                   </div>
 
-                  {/* Actions */}
-                  <div className="flex flex-col sm:flex-row items-center gap-3 mt-4 sm:mt-0">
+                  {/* Buttons */}
+                  <div className="flex flex-col sm:flex-row items-center gap-3 mt-4 sm:mt-0 w-full sm:w-auto">
                     <button
                       onClick={() => handleMoveToCart(item)}
-                      className="bg-indigo-600 text-white px-6 py-2 rounded-lg font-medium hover:bg-indigo-700 transition-all duration-300 hover:scale-105"
+                      className="w-full sm:w-auto bg-indigo-600 text-white px-5 py-2 rounded-lg font-medium hover:bg-indigo-700 transition hover:scale-105"
                     >
                       Move to Cart
                     </button>
+
                     <button
                       onClick={() => handleRemoveWish(item.id)}
-                      className="bg-red-500 text-white px-6 py-2 rounded-lg font-medium hover:bg-red-600 transition-all duration-300 hover:scale-105 flex items-center gap-2"
+                      className="w-full sm:w-auto bg-red-500 text-white px-5 py-2 rounded-lg font-medium hover:bg-red-600 transition hover:scale-105 flex items-center gap-2"
                     >
                       <FaTrash className="h-4 w-4" /> Remove
                     </button>
@@ -142,24 +144,24 @@ export default function Wishlist() {
               ))}
             </div>
 
-            {/* Summary Section */}
-            <div className="bg-white/70 backdrop-blur-md mt-10 p-6 rounded-2xl shadow-md flex flex-col sm:flex-row justify-between items-center">
+            {/* Summary */}
+            <div className="bg-white/70 backdrop-blur-md mt-8 p-5 rounded-xl shadow-md flex flex-col sm:flex-row justify-between items-center">
               <div className="text-xl font-semibold text-gray-700">
-                Total:{" "}
-                <span className="text-indigo-700 font-bold">${totalPrice}</span>
+                Total: <span className="text-indigo-700 font-bold">${totalPrice}</span>
               </div>
+
               {isWishlist && (
                 <Link to="/">
                   <button
                     onClick={handleCloseWish}
-                    className="mt-4 sm:mt-0 px-8 py-3 bg-indigo-600 text-white rounded-lg font-semibold hover:bg-indigo-700 transition-all duration-300 hover:scale-105"
+                    className="mt-4 sm:mt-0 px-8 py-3 bg-indigo-600 text-white rounded-lg font-semibold hover:bg-indigo-700 transition hover:scale-105"
                   >
                     Close Wishlist
                   </button>
                 </Link>
               )}
             </div>
-          </div>
+          </>
         )}
       </div>
     </div>
