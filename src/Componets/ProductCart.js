@@ -41,8 +41,8 @@ export default function ProductCart(props) {
   const discountedPrice =
     discount > 0 ? (price - price * (discount / 100)).toFixed(2) : null;
 
-  const renderStars = (rating) => {
-    return [...Array(5)].map((_, i) => (
+  const renderStars = (rating) =>
+    [...Array(5)].map((_, i) => (
       <FaStar
         key={i}
         className={`text-[10px] ${
@@ -50,11 +50,10 @@ export default function ProductCart(props) {
         }`}
       />
     ));
-  };
 
   return (
     <div className="group relative w-full max-w-[160px] xs:max-w-[170px] sm:max-w-xs mx-auto bg-white rounded-xl shadow-md overflow-hidden transition-all duration-500 hover:scale-[1.03] border border-gray-100">
-      
+
       {/* Wishlist */}
       <button
         onClick={Addtowish}
@@ -74,7 +73,7 @@ export default function ProductCart(props) {
         </div>
       )}
 
-      {/* Product Image */}
+      {/* Image */}
       <Link to={`/product/${id}`}>
         <div className="relative w-full h-36 xs:h-40 sm:h-56 overflow-hidden bg-gray-100">
           <img
@@ -88,6 +87,7 @@ export default function ProductCart(props) {
 
       {/* Content */}
       <div className="p-2 xs:p-3 sm:p-4">
+
         {/* Title */}
         <h3 className="text-[12px] xs:text-sm sm:text-base font-bold text-gray-900 line-clamp-1 group-hover:text-blue-700 transition">
           <Link to={`/product/${id}`}>{productname}</Link>
@@ -106,41 +106,43 @@ export default function ProductCart(props) {
           </span>
         </div>
 
-        {/* Price + Add Button */}
-        <div className="mt-3 flex items-center justify-between">
-          {/* Price */}
+        {/* Price + Big Button */}
+        <div className="mt-3 flex items-center justify-between gap-2">
+
+          {/* SMALL Price */}
           <div>
             {discount > 0 ? (
               <>
-                <p className="text-[10px] text-gray-400 line-through">₹{price}</p>
-                <p className="text-lg sm:text-xl font-extrabold bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">
+                <p className="text-[9px] text-gray-400 line-through">₹{price}</p>
+                <p className="text-sm sm:text-base font-semibold text-blue-600">
                   ₹{discountedPrice}
                 </p>
               </>
             ) : (
-              <p className="text-lg font-extrabold text-gray-900">₹{price}</p>
+              <p className="text-sm sm:text-base font-semibold text-gray-800">
+                ₹{price}
+              </p>
             )}
           </div>
 
-          {/* Add to Cart */}
+          {/* BIG Add to Cart Button */}
           <button
             onClick={AddtoCart}
             disabled={add}
-            className={`py-1 px-2 sm:px-3 rounded-lg text-white font-medium text-[10px] xs:text-xs sm:text-sm transition-all ${
-              add
-                ? "bg-green-500 cursor-not-allowed animate-pulse"
-                : "bg-gradient-to-r from-blue-600 to-indigo-600 hover:scale-105"
-            }`}
+            className={`flex items-center justify-center gap-2 
+              px-3 sm:px-4 py-2 sm:py-2.5
+              min-w-[50px] sm:min-w-[120px]
+              rounded-lg text-white font-semibold
+              text-xs sm:text-sm
+              transition-all duration-300
+              ${
+                add
+                  ? "bg-green-500 cursor-not-allowed animate-pulse"
+                  : "bg-gradient-to-r from-blue-600 to-indigo-600 hover:scale-105"
+              }`}
           >
-            {add ? (
-              <span className="flex items-center">
-                <FaShoppingCart className="mr-1 animate-bounce" /> Added
-              </span>
-            ) : (
-              <span className="flex items-center">
-                <FaShoppingCart className="mr-1" /> Add
-              </span>
-            )}
+            <FaShoppingCart className={add ? "animate-bounce" : ""} />
+            {add ? "Added" : "Add"}
           </button>
         </div>
       </div>

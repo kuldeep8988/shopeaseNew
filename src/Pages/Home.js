@@ -34,7 +34,7 @@ export default function Home() {
 
   const productsToShow = showAll ? api : api.slice(0, 8);
 
-  // ---------------- Skeleton Loader ----------------
+ 
   const SkeletonCard = () => (
     <div className="animate-pulse bg-white rounded-lg shadow-md p-2 sm:p-4 w-full">
       <div className="h-28 xs:h-32 sm:h-44 bg-gray-300 rounded-lg mb-2"></div>
