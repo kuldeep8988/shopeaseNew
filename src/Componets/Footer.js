@@ -3,34 +3,47 @@ import { FaFacebookF, FaInstagram, FaTwitter, FaYoutube } from "react-icons/fa";
 
 export default function Footer() {
   return (
-    <footer className="bg-gray-900 text-gray-400 py-4">
-      <div className="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-3">
+    <footer className="bg-gray-900 text-gray-400">
+      <div className="max-w-7xl mx-auto px-4 py-6">
 
-        {/* Logo */}
-        <h2 className="text-lg font-semibold text-white">
-          ShopEase
-        </h2>
+        <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
 
-        {/* Social Icons */}
-        <div className="flex gap-3">
-          <a className="p-2 bg-white/10 rounded-full hover:bg-white/20 transition">
-            <FaFacebookF size={14} />
-          </a>
-          <a className="p-2 bg-white/10 rounded-full hover:bg-white/20 transition">
-            <FaInstagram size={14} />
-          </a>
-          <a className="p-2 bg-white/10 rounded-full hover:bg-white/20 transition">
-            <FaTwitter size={14} />
-          </a>
-          <a className="p-2 bg-white/10 rounded-full hover:bg-white/20 transition">
-            <FaYoutube size={14} />
-          </a>
+          {/* Brand + Tagline */}
+          <div className="text-center sm:text-left">
+            <h2 className="text-white font-semibold text-lg">
+              ShopEase
+            </h2>
+            <p className="text-xs text-gray-500">
+              Fast delivery • Easy returns • Trusted store
+            </p>
+          </div>
+
+          {/* Quick Links */}
+          <div className="flex gap-4 text-sm">
+            <a href="#" className="hover:text-white transition">About</a>
+            <a href="#" className="hover:text-white transition">Contact</a>
+            <a href="#" className="hover:text-white transition">Privacy</a>
+          </div>
+
+          {/* Social Icons */}
+          <div className="flex gap-3">
+            {[FaFacebookF, FaInstagram, FaTwitter, FaYoutube].map((Icon, i) => (
+              <a
+                key={i}
+                href="#"
+                className="w-8 h-8 flex items-center justify-center rounded-full bg-white/10 hover:bg-indigo-600 text-white transition"
+              >
+                <Icon size={14} />
+              </a>
+            ))}
+          </div>
+
         </div>
 
-        {/* Copyright */}
-        <p className="text-xs text-center sm:text-right">
-          © {new Date().getFullYear()} ShopEase
-        </p>
+        {/* Bottom Line */}
+        <div className="border-t border-white/10 mt-4 pt-3 text-center text-xs">
+          © {new Date().getFullYear()} ShopEase. All rights reserved.
+        </div>
 
       </div>
     </footer>

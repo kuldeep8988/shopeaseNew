@@ -161,29 +161,57 @@ export default function Home() {
       </section>
 
       {/* ================= TRUST ================= */}
-      <section className="py-12 bg-indigo-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 grid grid-cols-3 gap-6 text-center">
+     <section className="py-16 bg-gradient-to-b from-indigo-50 to-white">
+  <div className="max-w-7xl mx-auto px-4 sm:px-6">
 
-          <div>
-            <FaStar className="text-4xl text-yellow-500 mx-auto mb-2" />
-            <h4 className="font-bold">4.9 Rating</h4>
-            <p className="text-gray-600 text-sm">10k+ Reviews</p>
-          </div>
+    {/* Section Heading */}
+    <div className="text-center mb-12">
+      <h2 className="text-3xl font-bold text-gray-800">
+        Trusted by Thousands of Customers
+      </h2>
+      <p className="mt-2 text-gray-600 text-sm max-w-xl mx-auto">
+        We deliver quality products, fast shipping, and hassle-free returns to
+        ensure complete customer satisfaction.
+      </p>
+    </div>
 
-          <div>
-            <FaTruck className="text-4xl text-green-500 mx-auto mb-2" />
-            <h4 className="font-bold">Fast Delivery</h4>
-            <p className="text-gray-600 text-sm">2–3 Days</p>
-          </div>
+    {/* Trust Cards */}
+    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
 
-          <div>
-            <FaUndo className="text-4xl text-blue-500 mx-auto mb-2" />
-            <h4 className="font-bold">Easy Returns</h4>
-            <p className="text-gray-600 text-sm">30 Days Policy</p>
-          </div>
-
+      {/* Rating */}
+      <div className="bg-white rounded-2xl p-8 text-center shadow-md hover:shadow-xl transition duration-300">
+        <div className="w-16 h-16 flex items-center justify-center mx-auto rounded-full bg-yellow-100 mb-4">
+          <FaStar className="text-3xl text-yellow-500" />
         </div>
-      </section>
+        <h4 className="text-xl font-semibold text-gray-800">4.9 Star Rating</h4>
+        <p className="text-gray-600 text-sm mt-1">Based on 10,000+ reviews</p>
+      </div>
+
+      {/* Delivery */}
+      <div className="bg-white rounded-2xl p-8 text-center shadow-md hover:shadow-xl transition duration-300">
+        <div className="w-16 h-16 flex items-center justify-center mx-auto rounded-full bg-green-100 mb-4">
+          <FaTruck className="text-3xl text-green-500" />
+        </div>
+        <h4 className="text-xl font-semibold text-gray-800">Fast Delivery</h4>
+        <p className="text-gray-600 text-sm mt-1">
+          Get your order in just 2–3 business days
+        </p>
+      </div>
+
+      {/* Returns */}
+      <div className="bg-white rounded-2xl p-8 text-center shadow-md hover:shadow-xl transition duration-300">
+        <div className="w-16 h-16 flex items-center justify-center mx-auto rounded-full bg-blue-100 mb-4">
+          <FaUndo className="text-3xl text-blue-500" />
+        </div>
+        <h4 className="text-xl font-semibold text-gray-800">Easy Returns</h4>
+        <p className="text-gray-600 text-sm mt-1">
+          30-day hassle-free return policy
+        </p>
+      </div>
+
+    </div>
+  </div>
+</section>
 
     </div>
   );

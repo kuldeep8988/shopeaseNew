@@ -47,7 +47,7 @@ export default function Header() {
 
   return (
     <header className="fixed top-0 w-full z-50 bg-white/90 backdrop-blur-xl border-b border-gray-200 shadow-sm">
-      <div className="max-w-7xl mx-auto px-2 sm:px-4 py-2">
+      <div className="max-w-7xl mx-auto px-2 sm:px-4 py-2 ">
         <nav className="flex items-center justify-between">
 
           {/* LOGO */}
@@ -80,7 +80,7 @@ export default function Header() {
           </ul>
 
           {/* RIGHT ICONS */}
-          <div className="flex items-center gap-1 sm:gap-3">
+          <div className="flex items-center gap-2 sm:gap-1">
 
             {/* Wishlist */}
             <button

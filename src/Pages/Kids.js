@@ -46,7 +46,7 @@ export default function Kids() {
           </p>
 
           <button className="bg-white text-pink-600 px-7 py-3 rounded-full font-bold text-base sm:text-lg shadow-xl hover:bg-yellow-100 hover:scale-105 transition-all flex items-center mx-auto">
-            Explore Fun
+          <a href="#kidsproduct">Explore Fun</a>  
             <FaArrowRight className="ml-2" />
           </button>
         </div>
@@ -57,46 +57,65 @@ export default function Kids() {
       </section>
 
       {/* ---------------------- BANNERS ---------------------- */}
-      <section className="py-10 bg-white">
-        <div className="container mx-auto px-4">
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+{/* ---------------------- CREATIVE KIDS SECTION ---------------------- */}
+<section className="py-14 bg-gradient-to-r from-pink-50 via-yellow-50 to-blue-50">
+  <div className="container mx-auto px-4">
 
-            {/* Banner 1 */}
-            <div className="relative rounded-2xl p-8 text-center shadow-xl bg-gradient-to-br from-pink-500 to-rose-600 text-white hover:scale-105 transition-all duration-300">
-              <FaStar className="mx-auto text-4xl mb-3 opacity-90" />
-              <h3 className="text-xl font-bold mb-1">🎈 30% Off Kids' Wear</h3>
-              <p className="text-sm mb-4 opacity-90">Make playtime stylish.</p>
-              <button className="bg-white text-pink-600 px-5 py-2 rounded-full font-semibold shadow hover:bg-opacity-90 transition">
-                Shop Kids
-              </button>
-            </div>
+    {/* Heading */}
+    <div className="text-center mb-12">
+      <h2 className="text-3xl sm:text-4xl font-extrabold text-pink-600">
+        Why Kids Love Our Collection 💖
+      </h2>
+      <p className="text-gray-600 mt-2 max-w-xl mx-auto">
+        Designed with fun, comfort, and safety in mind.
+      </p>
+    </div>
 
-            {/* Banner 2 */}
-            <div className="relative rounded-2xl p-8 text-center shadow-xl bg-gradient-to-br from-yellow-500 to-orange-600 text-white hover:scale-105 transition-all duration-300">
-              <FaTruck className="mx-auto text-4xl mb-3 opacity-90" />
-              <h3 className="text-xl font-bold mb-1">🚚 Free Shipping</h3>
-              <p className="text-sm mb-4 opacity-90">On orders over $30.</p>
-              <button className="bg-white text-yellow-600 px-5 py-2 rounded-full font-semibold shadow hover:bg-opacity-90 transition">
-                Fast Delivery
-              </button>
-            </div>
+    {/* Creative Cards */}
+    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
 
-            {/* Banner 3 */}
-            <div className="relative rounded-2xl p-8 text-center shadow-xl bg-gradient-to-br from-blue-500 to-cyan-600 text-white hover:scale-105 transition-all duration-300">
-              <FaUndo className="mx-auto text-4xl mb-3 opacity-90" />
-              <h3 className="text-xl font-bold mb-1">🔄 Easy Returns</h3>
-              <p className="text-sm mb-4 opacity-90">30-day hassle-free.</p>
-              <button className="bg-white text-blue-600 px-5 py-2 rounded-full font-semibold shadow hover:bg-opacity-90 transition">
-                Return Policy
-              </button>
-            </div>
+      {/* Card 1 */}
+      <div className="bg-white rounded-2xl p-6 text-center shadow-md hover:shadow-xl hover:-translate-y-1 transition">
+        <div className="text-4xl mb-3">🎨</div>
+        <h4 className="font-bold text-lg mb-1">Bright Colors</h4>
+        <p className="text-sm text-gray-600">
+          Fun designs kids absolutely love.
+        </p>
+      </div>
 
-          </div>
-        </div>
-      </section>
+      {/* Card 2 */}
+      <div className="bg-white rounded-2xl p-6 text-center shadow-md hover:shadow-xl hover:-translate-y-1 transition">
+        <div className="text-4xl mb-3">🧸</div>
+        <h4 className="font-bold text-lg mb-1">Soft & Comfy</h4>
+        <p className="text-sm text-gray-600">
+          Gentle fabrics for all-day comfort.
+        </p>
+      </div>
+
+      {/* Card 3 */}
+      <div className="bg-white rounded-2xl p-6 text-center shadow-md hover:shadow-xl hover:-translate-y-1 transition">
+        <div className="text-4xl mb-3">🛡️</div>
+        <h4 className="font-bold text-lg mb-1">Safe Materials</h4>
+        <p className="text-sm text-gray-600">
+          Kid-friendly & skin-safe quality.
+        </p>
+      </div>
+
+      {/* Card 4 */}
+      <div className="bg-white rounded-2xl p-6 text-center shadow-md hover:shadow-xl hover:-translate-y-1 transition">
+        <div className="text-4xl mb-3">🎁</div>
+        <h4 className="font-bold text-lg mb-1">Perfect Gifts</h4>
+        <p className="text-sm text-gray-600">
+          Ideal for birthdays & special days.
+        </p>
+      </div>
+
+    </div>
+  </div>
+</section>
 
       {/* ---------------------- PRODUCTS ---------------------- */}
-      <section className="py-14 bg-gradient-to-b from-white to-pink-50">
+      <section className="py-14 bg-gradient-to-b from-white to-pink-50" id="kidsproduct">
         <div className="container mx-auto px-4 text-center">
 
           <h2 className="text-3xl sm:text-4xl font-bold mb-3 bg-gradient-to-r from-pink-600 to-blue-600 bg-clip-text text-transparent">

@@ -12,7 +12,6 @@ export default function ProductCart(props) {
     price,
     productimage,
     imageAlt,
-    color,
     productdescription,
     rating,
     discount = 0,
@@ -22,20 +21,20 @@ export default function ProductCart(props) {
   const [wishh, setWishh] = useState(false);
   const dispatch = useDispatch();
 
-  const AddtoCart = (event) => {
-    event.preventDefault();
-    event.stopPropagation();
+  const AddtoCart = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
     dispatch(addItem({ ...props }));
     setAdd(true);
-    setTimeout(() => setAdd(false), 2000);
+    setTimeout(() => setAdd(false), 1500);
   };
 
-  const Addtowish = (event) => {
-    event.preventDefault();
-    event.stopPropagation();
+  const Addtowish = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
     dispatch(wishaddItem({ ...props }));
     setWishh(true);
-    setTimeout(() => setWishh(false), 2000);
+    setTimeout(() => setWishh(false), 1500);
   };
 
   const discountedPrice =
@@ -45,104 +44,124 @@ export default function ProductCart(props) {
     [...Array(5)].map((_, i) => (
       <FaStar
         key={i}
-        className={`text-[10px] ${
+        className={`text-[10px] sm:text-xs ${
           i < Math.floor(rating) ? "text-yellow-400" : "text-gray-300"
         }`}
       />
     ));
 
   return (
-    <div className="group relative w-full max-w-[160px] xs:max-w-[170px] sm:max-w-xs mx-auto bg-white rounded-xl shadow-md overflow-hidden transition-all duration-500 hover:scale-[1.03] border border-gray-100">
-
+    <div
+      className="
+        group relative w-full max-w-[160px] sm:max-w-xs mx-auto
+        bg-white rounded-xl overflow-hidden
+        border border-gray-100
+        transition-all duration-300 ease-out
+        hover:-translate-y-1 hover:shadow-xl
+      "
+    >
       {/* Wishlist */}
       <button
         onClick={Addtowish}
-        className={`absolute top-2 right-2 z-20 w-7 h-7 sm:w-9 sm:h-9 flex items-center justify-center rounded-full transition-all duration-300 ${
-          wishh
-            ? "bg-red-500 text-white scale-110 shadow-md"
-            : "bg-white/90 backdrop-blur-sm text-gray-600 hover:bg-red-50 hover:text-red-500"
-        }`}
+        className={`
+          absolute top-2 right-2 z-20
+          w-8 h-8 flex items-center justify-center
+          rounded-full transition-all duration-300
+          hover:scale-110
+          ${
+            wishh
+              ? "bg-red-500 text-white"
+              : "bg-white text-gray-600 hover:text-red-500"
+          }
+        `}
       >
-        <FaHeart className="w-4 h-4 sm:w-5 sm:h-5" />
+        <FaHeart className="text-sm" />
       </button>
 
       {/* Discount Badge */}
       {discount > 0 && (
-        <div className="absolute top-2 left-2 z-20 bg-gradient-to-r from-blue-500 to-indigo-600 text-white text-[9px] sm:text-xs font-bold px-2 py-1 rounded-full shadow">
+        <span className="absolute top-2 left-2 z-20 bg-indigo-600 text-white text-[10px] px-2 py-1 rounded-full">
           {discount}% OFF
-        </div>
+        </span>
       )}
 
       {/* Image */}
       <Link to={`/product/${id}`}>
-        <div className="relative w-full h-36 xs:h-40 sm:h-56 overflow-hidden bg-gray-100">
+        <div className="relative w-full h-36 sm:h-56 overflow-hidden bg-gray-100">
           <img
             src={productimage}
             alt={imageAlt || productname}
-            loading="lazy"
-            className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+            className="
+              w-full h-full object-cover
+              transition-transform duration-700 ease-out
+              group-hover:scale-110
+            "
           />
         </div>
       </Link>
 
       {/* Content */}
-      <div className="p-2 xs:p-3 sm:p-4">
-
+      <div className="p-2 sm:p-4">
         {/* Title */}
-        <h3 className="text-[12px] xs:text-sm sm:text-base font-bold text-gray-900 line-clamp-1 group-hover:text-blue-700 transition">
+        <h3 className="text-xs sm:text-base font-semibold text-gray-800 line-clamp-1 group-hover:text-indigo-600 transition">
           <Link to={`/product/${id}`}>{productname}</Link>
         </h3>
 
         {/* Description */}
-        <p className="mt-1 text-[10px] xs:text-xs sm:text-sm text-gray-600 line-clamp-2">
+        <p className="text-[10px] sm:text-sm text-gray-500 line-clamp-2 mt-1">
           {productdescription}
         </p>
 
         {/* Rating */}
-        <div className="mt-2 flex items-center">
-          <div className="flex">{renderStars(rating || 0)}</div>
-          <span className="text-[10px] text-gray-500 ml-1">
+        <div className="flex items-center gap-1 mt-2">
+          {renderStars(rating || 0)}
+          <span className="text-[10px] text-gray-500">
             ({rating || 0})
           </span>
         </div>
 
-        {/* Price + Big Button */}
-        <div className="mt-3 flex items-center justify-between gap-2">
-
-          {/* SMALL Price */}
+        {/* Price + Cart */}
+        <div className="flex items-center justify-between mt-3 gap-2">
+          {/* Price */}
           <div>
             {discount > 0 ? (
               <>
-                <p className="text-[9px] text-gray-400 line-through">₹{price}</p>
-                <p className="text-sm sm:text-base font-semibold text-blue-600">
+                <p className="text-[10px] line-through text-gray-400">
+                  ₹{price}
+                </p>
+                <p className="text-sm sm:text-base font-bold text-indigo-600">
                   ₹{discountedPrice}
                 </p>
               </>
             ) : (
-              <p className="text-sm sm:text-base font-semibold text-gray-800">
+              <p className="text-sm sm:text-base font-bold text-gray-800">
                 ₹{price}
               </p>
             )}
           </div>
 
-          {/* BIG Add to Cart Button */}
+          {/* Add to Cart */}
           <button
             onClick={AddtoCart}
             disabled={add}
-            className={`flex items-center justify-center gap-2 
-              px-3 sm:px-4 py-2 sm:py-2.5
-              min-w-[50px] sm:min-w-[120px]
-              rounded-lg text-white font-semibold
-              text-xs sm:text-sm
+            className={`
+              flex items-center gap-1
+              px-3 py-2 rounded-lg text-xs sm:text-sm
+              text-white font-semibold
               transition-all duration-300
+              sm:opacity-0 sm:translate-y-3
+              sm:group-hover:opacity-100 sm:group-hover:translate-y-0
               ${
                 add
-                  ? "bg-green-500 cursor-not-allowed animate-pulse"
-                  : "bg-gradient-to-r from-blue-600 to-indigo-600 hover:scale-105"
-              }`}
+                  ? "bg-green-500 cursor-not-allowed"
+                  : "bg-indigo-600 hover:bg-indigo-500"
+              }
+            `}
           >
-            <FaShoppingCart className={add ? "animate-bounce" : ""} />
-            {add ? "Added" : "Add"}
+            <FaShoppingCart />
+            <span className="hidden sm:inline">
+              {add ? "Added" : "Add"}
+            </span>
           </button>
         </div>
       </div>
