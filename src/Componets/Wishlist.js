@@ -20,30 +20,29 @@ export default function Wishlist() {
   const handleDecrement = (id) => dispatch(wishdecrementItem(id));
 
   const handleMoveToCart = (item) => {
-    const itemWithQuantity = { ...item, quantity: item.quantity || 1 };
-    dispatch(addItem(itemWithQuantity));
+    dispatch(addItem({ ...item, quantity: item.quantity || 1 }));
     dispatch(wishremoveItem(item.id));
   };
 
-  // Clean Price Converter
   const getItemPrice = (item) => {
     const price = parseFloat(item.price?.replace(/[^0-9.]/g, "") || 0);
     return price * (item.quantity || 1);
   };
 
   const totalPrice = wishItem
-    .reduce((total, item) => total + getItemPrice(item), 0)
+    .reduce((t, i) => t + getItemPrice(i), 0)
     .toFixed(2);
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-indigo-50 to-gray-100 pt-20 px-3 sm:px-6 lg:px-8">
-      <div className="max-w-5xl mx-auto">
+    <div className="min-h-screen bg-gradient-to-b from-indigo-50 to-gray-100 pt-16 px-2 sm:px-6">
+      <div className="max-w-4xl mx-auto">
+
         {/* Header */}
-        <div className="flex justify-between items-center mb-8">
-          <h1 className="text-3xl sm:text-4xl font-extrabold text-indigo-900 flex items-center gap-2 sm:gap-3">
-            <FaHeart className="text-pink-500" />
+        <div className="flex items-center justify-between mb-5">
+          <h1 className="text-lg xs:text-xl sm:text-3xl font-extrabold text-indigo-900 flex items-center gap-2">
+            <FaHeart className="text-pink-500 text-base sm:text-xl" />
             Wishlist
-            <span className="text-base sm:text-lg font-medium text-gray-600">
+            <span className="text-sm sm:text-base text-gray-600">
               ({wishItem.length})
             </span>
           </h1>
@@ -51,93 +50,110 @@ export default function Wishlist() {
           {isWishlist && (
             <button
               onClick={handleCloseWish}
-              className="text-gray-600 hover:text-indigo-700 text-3xl font-bold"
+              className="text-gray-600 hover:text-indigo-700 text-2xl sm:text-3xl"
             >
               &times;
             </button>
           )}
         </div>
 
-        {/* Empty Wishlist */}
+        {/* Empty */}
         {wishItem.length === 0 ? (
-          <div className="bg-white/70 backdrop-blur-md rounded-xl shadow-lg p-10 text-center">
-            <p className="text-gray-700 text-lg sm:text-xl font-medium">
-              Your wishlist is empty.{" "}
-              <Link
-                to="/"
-                className="text-indigo-600 hover:text-indigo-800 font-semibold"
-              >
-                Start shopping →
-              </Link>
+          <div className="bg-white rounded-xl shadow p-6 text-center">
+            <p className="text-sm sm:text-lg text-gray-700">
+              Your wishlist is empty.
             </p>
+            <Link
+              to="/"
+              className="inline-block mt-3 text-indigo-600 font-semibold"
+            >
+              Start shopping →
+            </Link>
           </div>
         ) : (
           <>
-            {/* Wishlist Items */}
-            <div className="grid gap-5">
+            {/* Items */}
+            <div className="space-y-4">
               {wishItem.map((item) => (
                 <div
                   key={item.id}
-                  className="flex flex-col sm:flex-row items-center sm:items-stretch justify-between bg-white rounded-xl shadow-md hover:shadow-lg transition-all duration-300 p-4 sm:p-5"
+                  className="
+                    bg-white rounded-xl shadow-sm
+                    p-3 sm:p-5
+                    flex flex-col gap-3
+                    sm:flex-row sm:items-center sm:justify-between
+                  "
                 >
-                  {/* Product Info */}
-                  <div className="flex items-center gap-4 w-full sm:w-1/2">
-                    <Link
-                      to={`/product/${item.id}`}
-                      className="flex items-center gap-4 group"
-                    >
-                      <img
-                        src={item.productimage}
-                        alt={item.productname}
-                        className="w-20 h-20 sm:w-24 sm:h-24 object-cover rounded-xl shadow-sm group-hover:scale-105 transition-transform"
-                      />
-                      <div>
-                        <h2 className="text-base sm:text-lg font-semibold text-gray-800 group-hover:text-indigo-600 transition">
-                          {item.productname || "Unnamed Product"}
-                        </h2>
-                        <p className="text-gray-600 mt-1 text-sm">
-                          ${parseFloat(item.price?.replace(/[^0-9.]/g, "") || 0).toFixed(2)}
-                        </p>
-                      </div>
-                    </Link>
-                  </div>
+                  {/* Product */}
+                  <Link
+                    to={`/product/${item.id}`}
+                    className="flex gap-3 items-center"
+                  >
+                    <img
+                      src={item.productimage}
+                      alt={item.productname}
+                      className="w-16 h-16 xs:w-20 xs:h-20 sm:w-24 sm:h-24 object-cover rounded-lg"
+                    />
 
-                  {/* Qty Controls */}
-                  <div className="flex items-center gap-3 sm:gap-4 mt-4 sm:mt-0">
+                    <div className="min-w-0">
+                      <h2 className="text-sm sm:text-lg font-semibold text-gray-800 truncate">
+                        {item.productname}
+                      </h2>
+                      <p className="text-xs sm:text-sm text-gray-600 mt-1">
+                        ₹{parseFloat(item.price?.replace(/[^0-9.]/g, "") || 0)}
+                      </p>
+                    </div>
+                  </Link>
+
+                  {/* Quantity */}
+                  <div className="flex items-center justify-between sm:justify-start gap-3">
                     <button
                       onClick={() => handleDecrement(item.id)}
                       disabled={(item.quantity || 1) <= 1}
-                      className="p-2 bg-gray-200 rounded-full hover:bg-gray-300 disabled:opacity-40"
+                      className="p-2 bg-gray-200 rounded-full disabled:opacity-40"
                     >
-                      <FaMinus className="h-4 w-4 text-gray-700" />
+                      <FaMinus size={12} />
                     </button>
 
-                    <span className="text-lg font-medium text-gray-800 w-6 text-center">
+                    <span className="text-sm sm:text-lg font-medium w-6 text-center">
                       {item.quantity || 1}
                     </span>
 
                     <button
                       onClick={() => handleIncrement(item.id)}
-                      className="p-2 bg-gray-200 rounded-full hover:bg-gray-300"
+                      className="p-2 bg-gray-200 rounded-full"
                     >
-                      <FaPlus className="h-4 w-4 text-gray-700" />
+                      <FaPlus size={12} />
                     </button>
                   </div>
 
-                  {/* Buttons */}
-                  <div className="flex flex-col sm:flex-row items-center gap-3 mt-4 sm:mt-0 w-full sm:w-auto">
+                  {/* Actions */}
+                  <div className="flex flex-col xs:flex-row gap-2 w-full sm:w-auto">
                     <button
                       onClick={() => handleMoveToCart(item)}
-                      className="w-full sm:w-auto bg-indigo-600 text-white px-5 py-2 rounded-lg font-medium hover:bg-indigo-700 transition hover:scale-105"
+                      className="
+                        w-full sm:w-auto
+                        bg-indigo-600 text-white
+                        px-4 py-2 rounded-lg
+                        text-xs sm:text-sm font-semibold
+                        hover:bg-indigo-700 transition
+                      "
                     >
                       Move to Cart
                     </button>
 
                     <button
                       onClick={() => handleRemoveWish(item.id)}
-                      className="w-full sm:w-auto bg-red-500 text-white px-5 py-2 rounded-lg font-medium hover:bg-red-600 transition hover:scale-105 flex items-center gap-2"
+                      className="
+                        w-full sm:w-auto
+                        bg-red-500 text-white
+                        px-4 py-2 rounded-lg
+                        text-xs sm:text-sm font-semibold
+                        hover:bg-red-600 transition
+                        flex items-center justify-center gap-2
+                      "
                     >
-                      <FaTrash className="h-4 w-4" /> Remove
+                      <FaTrash size={12} /> Remove
                     </button>
                   </div>
                 </div>
@@ -145,21 +161,28 @@ export default function Wishlist() {
             </div>
 
             {/* Summary */}
-            <div className="bg-white/70 backdrop-blur-md mt-8 p-5 rounded-xl shadow-md flex flex-col sm:flex-row justify-between items-center">
-              <div className="text-xl font-semibold text-gray-700">
-                Total: <span className="text-indigo-700 font-bold">${totalPrice}</span>
-              </div>
+            <div className="bg-white mt-6 p-4 rounded-xl shadow flex flex-col sm:flex-row items-center justify-between gap-4">
+              <p className="text-sm sm:text-xl font-semibold text-gray-700">
+                Total:{" "}
+                <span className="text-indigo-700 font-bold">
+                  ₹{totalPrice}
+                </span>
+              </p>
 
-              {isWishlist && (
-                <Link to="/">
-                  <button
-                    onClick={handleCloseWish}
-                    className="mt-4 sm:mt-0 px-8 py-3 bg-indigo-600 text-white rounded-lg font-semibold hover:bg-indigo-700 transition hover:scale-105"
-                  >
-                    Close Wishlist
-                  </button>
-                </Link>
-              )}
+              <Link to="/">
+                <button
+                  onClick={handleCloseWish}
+                  className="
+                    px-6 py-2
+                    bg-indigo-600 text-white
+                    rounded-lg font-semibold
+                    text-sm
+                    hover:bg-indigo-700 transition
+                  "
+                >
+                  Close Wishlist
+                </button>
+              </Link>
             </div>
           </>
         )}
