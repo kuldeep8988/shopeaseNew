@@ -135,7 +135,7 @@ export default function Cart() {
                     </div>
 
                     {/* Remove */}
-                  <button
+                         <button
   onClick={() => dispatch(removeItem(item.id))}
   className="
     px-3 py-1.5

@@ -1,6 +1,8 @@
 import axios from "axios";
 import React, { useState, useEffect } from "react";
 import { FaArrowRight, FaStar, FaTruck, FaShieldAlt, FaUndo } from "react-icons/fa";
+import { FaCrown, FaLeaf, FaGem, FaFeatherAlt } from "react-icons/fa";
+
 import ProductCart from "../Componets/ProductCart";
 
 export default function Woman() {
@@ -61,43 +63,79 @@ export default function Woman() {
       </section>
 
       {/* DISCOUNT BANNERS */}
-      <section className="py-10 bg-white">
-        <div className="container mx-auto px-4">
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+      
+    
+<section className="py-20 bg-[#faf7f5]">
+  <div className="max-w-7xl mx-auto px-4">
 
-            {/* Banner 1 */}
-            <div className="rounded-2xl bg-gradient-to-br from-rose-500 to-pink-600 text-white p-6 sm:p-8 text-center shadow-xl hover:scale-105 transition">
-              <FaStar className="mx-auto text-3xl sm:text-4xl mb-3 opacity-80" />
-              <h3 className="text-lg sm:text-2xl font-bold mb-2">👗 50% OFF Dresses!</h3>
-              <p className="text-sm opacity-90 mb-4">Stunning & affordable styles.</p>
-              <button className="bg-white text-rose-600 px-5 py-2 rounded-full font-semibold hover:bg-opacity-90">
-                Shop Dresses
-              </button>
-            </div>
+    {/* Heading */}
+    <div className="max-w-2xl mb-14">
+      <h2 className="text-3xl sm:text-4xl font-semibold text-gray-900">
+        Crafted for Modern Women
+      </h2>
+      <p className="mt-4 text-gray-600 text-base sm:text-lg">
+        Elevated essentials designed with precision, comfort, and timeless style.
+      </p>
+    </div>
 
-            {/* Banner 2 */}
-            <div className="rounded-2xl bg-gradient-to-br from-purple-500 to-violet-600 text-white p-6 sm:p-8 text-center shadow-xl hover:scale-105 transition">
-              <FaTruck className="mx-auto text-3xl sm:text-4xl mb-3 opacity-80" />
-              <h3 className="text-lg sm:text-2xl font-bold mb-2">🚚 Free Shipping</h3>
-              <p className="text-sm opacity-90 mb-4">On orders over $50.</p>
-              <button className="bg-white text-purple-600 px-5 py-2 rounded-full font-semibold hover:bg-opacity-90">
-                Fast & Free
-              </button>
-            </div>
+    {/* Feature Grid */}
+    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
 
-            {/* Banner 3 */}
-            <div className="rounded-2xl bg-gradient-to-br from-pink-500 to-rose-600 text-white p-6 sm:p-8 text-center shadow-xl hover:scale-105 transition">
-              <FaShieldAlt className="mx-auto text-3xl sm:text-4xl mb-3 opacity-80" />
-              <h3 className="text-lg sm:text-2xl font-bold mb-2">✨ Luxe Comfort</h3>
-              <p className="text-sm opacity-90 mb-4">Soft sustainable fabrics.</p>
-              <button className="bg-white text-pink-600 px-5 py-2 rounded-full font-semibold hover:bg-opacity-90">
-                Feel the Luxe
-              </button>
-            </div>
-
-          </div>
+      {/* Card 1 */}
+      <div className="bg-white rounded-2xl p-6 border border-gray-200 hover:border-rose-300 transition group">
+        <div className="h-12 w-12 rounded-xl bg-rose-100 flex items-center justify-center mb-4 group-hover:scale-110 transition">
+          <FaCrown className="text-rose-500 text-xl" />
         </div>
-      </section>
+        <h4 className="text-lg font-medium text-gray-900 mb-2">
+          Timeless Silhouettes
+        </h4>
+        <p className="text-sm text-gray-600">
+          Designs that stay relevant beyond seasonal trends.
+        </p>
+      </div>
+
+      {/* Card 2 */}
+      <div className="bg-white rounded-2xl p-6 border border-gray-200 hover:border-emerald-300 transition group">
+        <div className="h-12 w-12 rounded-xl bg-emerald-100 flex items-center justify-center mb-4 group-hover:scale-110 transition">
+          <FaLeaf className="text-emerald-600 text-xl" />
+        </div>
+        <h4 className="text-lg font-medium text-gray-900 mb-2">
+          Premium Fabrics
+        </h4>
+        <p className="text-sm text-gray-600">
+          Carefully sourced materials with a refined finish.
+        </p>
+      </div>
+
+      {/* Card 3 */}
+      <div className="bg-white rounded-2xl p-6 border border-gray-200 hover:border-amber-300 transition group">
+        <div className="h-12 w-12 rounded-xl bg-amber-100 flex items-center justify-center mb-4 group-hover:scale-110 transition">
+          <FaGem className="text-amber-500 text-xl" />
+        </div>
+        <h4 className="text-lg font-medium text-gray-900 mb-2">
+          Thoughtful Details
+        </h4>
+        <p className="text-sm text-gray-600">
+          Subtle finishes and clean tailoring in every piece.
+        </p>
+      </div>
+
+      {/* Card 4 */}
+      <div className="bg-white rounded-2xl p-6 border border-gray-200 hover:border-purple-300 transition group">
+        <div className="h-12 w-12 rounded-xl bg-purple-100 flex items-center justify-center mb-4 group-hover:scale-110 transition">
+          <FaFeatherAlt className="text-purple-600 text-xl" />
+        </div>
+        <h4 className="text-lg font-medium text-gray-900 mb-2">
+          Everyday Elegance
+        </h4>
+        <p className="text-sm text-gray-600">
+          Effortless pieces for work, travel, and beyond.
+        </p>
+      </div>
+
+    </div>
+  </div>
+</section>
 
       {/* PRODUCT LIST */}
       <section className="py-14 bg-gradient-to-b from-white to-purple-50">
